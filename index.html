@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cambodia Monthly Tax Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .card {
+            background: #ffffff;
+            color: #333;
+            width: 420px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #2c5364;
+        }
+
+        p.subtitle {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 25px;
+            color: #666;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2c5364;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #203a43;
+        }
+
+        .result {
+            margin-top: 20px;
+            background: #f4f7f9;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .result p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+            text-align: center;
+            color: #777;
+        }
+
+        footer a {
+            color: #2c5364;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Tax Calculator</h1>
+    <p class="subtitle">Cambodia Monthly Salary Tax</p>
+
+    <label for="salary">Monthly Salary (KHR)</label>
+    <input type="number" id="salary" placeholder="Enter salary e.g. 10000000">
+
+    <button onclick="calculateTax()">Calculate Tax</button>
+
+    <div class="result" id="result" style="display:none;">
+        <p><strong>Gross Salary:</strong> <span id="gross"></span> KHR</p>
+        <p><strong>Total Tax:</strong> <span id="tax"></span> KHR</p>
+        <p><strong>Net Salary:</strong> <span id="net"></span> KHR</p>
+    </div>
+
+    <footer>
+        <p>
+            Reference:
+            <a href="https://www.tax.gov.kh/kh/article?key=nFJ6TYYw5949529Y72" target="_blank">
+                General Department of Taxation (Cambodia)
+            </a>
+        </p>
+        <p>Website created by <strong>Meihor</strong></p>
+    </footer>
+</div>
+
+<script>
+    function calculateTax() {
+        let income = Number(document.getElementById("salary").value);
+        let originalIncome = income;
+        let tax = 0;
+
+        if (income > 12500000) {
+            tax += (income - 12500000) * 0.20;
+            income = 12500000;
+        }
+
+        if (income > 8500000) {
+            tax += (income - 8500000) * 0.15;
+            income = 8500000;
+        }
+
+        if (income > 2000000) {
+            tax += (income - 2000000) * 0.10;
+            income = 2000000;
+        }
+
+        if (income > 1500000) {
+            tax += (income - 1500000) * 0.05;
+        }
+
+        document.getElementById("gross").innerText = originalIncome.toLocaleString();
+        document.getElementById("tax").innerText = Math.round(tax).toLocaleString();
+        document.getElementById("net").innerText =
+            Math.round(originalIncome - tax).toLocaleString();
+
+        document.getElementById("result").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
+
